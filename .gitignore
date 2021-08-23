@@ -1,0 +1,28 @@
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!/src/main/
+!/src/test/
+/allure-results
+/docker
+/logs
+
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+
+# Ignore Gradle build output directory
+/out/
+.allure/
+/.DS_Store
+/allure-results/
+/ajcore*.txt
+**/*.log
+
+# Maven
+log/
+target/
