@@ -7,7 +7,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
@@ -20,6 +21,8 @@ public class Hw {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         logger.info("Драйвер поднят");
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
     }
 
     @After
@@ -47,12 +50,15 @@ public class Hw {
     }
 
     @Test
-    public void checkTele() {
+    public void checkTele() throws InterruptedException {
         logger.info("Проверка checkTele");
         driver.get("https://msk.tele2.ru/shop/number");
         logger.info("Сайт tele2.ru открыт");
         driver.findElement(By.cssSelector("#searchNumber")).sendKeys("97");
-        driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+        Thread.sleep(2000);
+        //не совсем понимаю, почему если делать так, не работает,а с слипом работает(
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//body/div[@id='root']/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[3]/div[1]/div[1]/div[2]"))).click();
         logger.info("Тест пройден");
     }
 
